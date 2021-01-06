@@ -6,6 +6,8 @@ pygame.init()
 
 screen = pygame.display.set_mode((800, 600))
 
+background = pygame.image.load('./assert/background.png')
+
 pygame.display.set_caption("Space Invaders")
 icon = pygame.image.load('./assert/ship.png')
 pygame.display.set_icon(icon)
@@ -31,6 +33,7 @@ def draw_enemy(enemy_position: dict):
 
 while run:
     screen.fill((50, 50, 150))
+    screen.blit(background, (0, 0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
