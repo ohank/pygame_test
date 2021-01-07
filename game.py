@@ -1,23 +1,24 @@
-
 import random
 import pygame
 
 pygame.init()
-
+clock = pygame.time.Clock()
+clock.tick(30)
 screen = pygame.display.set_mode((800, 600))
 
-background = pygame.image.load('./assert/background.png')
+
+background = pygame.image.load('assets/background.png')
 
 pygame.display.set_caption("Space Invaders")
-icon = pygame.image.load('./assert/ship.png')
+icon = pygame.image.load('assets/ship.png')
 pygame.display.set_icon(icon)
 run = True
 
-player_image = pygame.image.load('./assert/ship.png')
+player_image = pygame.image.load('assets/ship.png')
 player_pos = {"x": 370, "y": 480}
 player_move_x = 0
 
-enemy_image = pygame.image.load('./assert/enemy.png')
+enemy_image = pygame.image.load('assets/enemy.png')
 enemy_pos = {"x": random.randint(0, 800), "y": random.randint(50, 300)}
 enemy_move_x = 0.1
 enemy_move_y = 0
