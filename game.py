@@ -1,4 +1,6 @@
+import math
 import random
+
 import pygame
 
 pygame.init()
@@ -19,8 +21,8 @@ player_pos = {"x": 370, "y": 480}
 player_move_x = 0
 
 enemy_image = pygame.image.load('assets/enemy.png')
-enemy_pos = {"x": random.randint(0, 800), "y": random.randint(50, 150)}
-enemy_move_x = 1
+enemy_pos = {"x": random.randint(0, 700), "y": random.randint(50, 150)}
+enemy_move_x = 3
 enemy_move_y = 0
 
 laser_image = pygame.image.load('assets/laser.png')
@@ -28,6 +30,7 @@ laser_pos = {"x": 370, "y": 480}
 laser_move_y = 20
 laser_ready = True
 
+kills = 0
 
 def draw_player(player_position: dict):
     screen.blit(player_image, (player_position['x'], player_position['y']))
@@ -41,6 +44,14 @@ def fire_weapon(projectile_position: dict):
     global laser_ready
     laser_ready = False
     screen.blit(laser_image, (projectile_position['x'] + 16, projectile_position['y'] + 10))
+
+
+def is_collision(enemy_position: dict, projectile_position: dict) -> bool:
+    distance = math.sqrt(
+        (math.pow(enemy_position['x'] - projectile_position['x'], 2))
+        + (math.pow(enemy_position['y'] - projectile_position['y'], 2))
+    )
+    return distance < 27
 
 while run:
     clock.tick(30)
@@ -80,6 +91,13 @@ while run:
     if not laser_ready:
         fire_weapon(laser_pos)
         laser_pos['y'] -= laser_move_y
+
+    if is_collision(enemy_position=enemy_pos, projectile_position=laser_pos):
+        laser_ready = True
+        laser_pos = {"x": 370, "y": 480}
+        kills += 1
+        enemy_pos = {"x": random.randint(0, 700), "y": random.randint(50, 150)}
+
     draw_player(player_pos)
     draw_enemy(enemy_pos)
     pygame.display.update()
