@@ -3,7 +3,7 @@ import pygame
 
 pygame.init()
 clock = pygame.time.Clock()
-clock.tick(30)
+
 screen = pygame.display.set_mode((800, 600))
 
 
@@ -19,13 +19,13 @@ player_pos = {"x": 370, "y": 480}
 player_move_x = 0
 
 enemy_image = pygame.image.load('assets/enemy.png')
-enemy_pos = {"x": random.randint(0, 800), "y": random.randint(50, 300)}
-enemy_move_x = 0.1
+enemy_pos = {"x": random.randint(0, 800), "y": random.randint(50, 150)}
+enemy_move_x = 1
 enemy_move_y = 0
 
 laser_image = pygame.image.load('assets/laser.png')
 laser_pos = {"x": 370, "y": 480}
-laser_move_y = 1
+laser_move_y = 20
 laser_ready = True
 
 
@@ -43,6 +43,7 @@ def fire_weapon(projectile_position: dict):
     screen.blit(laser_image, (projectile_position['x'] + 16, projectile_position['y'] + 10))
 
 while run:
+    clock.tick(30)
     screen.fill((50, 50, 150))
     screen.blit(background, (0, 0))
     for event in pygame.event.get():
@@ -51,9 +52,9 @@ while run:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player_move_x = -0.3
+                player_move_x = -5
             if event.key == pygame.K_RIGHT:
-                player_move_x = 0.3
+                player_move_x = 5
             if event.key == pygame.K_SPACE and laser_ready:
                 laser_pos['x'] = player_pos['x']
                 fire_weapon(laser_pos)
@@ -67,10 +68,10 @@ while run:
 
     enemy_pos['x'] += enemy_move_x
     if enemy_pos['x'] <= 0:
-        enemy_move_x = 0.1
+        enemy_move_x = 3
         enemy_pos['y'] += 5
     if enemy_pos['x'] >= 736:
-        enemy_move_x = -0.1
+        enemy_move_x = -3
         enemy_pos['y'] += 5
     if laser_pos['y'] <= 0:
         laser_ready = True
