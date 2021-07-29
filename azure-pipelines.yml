@@ -16,7 +16,7 @@ steps:
     echo "Run Black"
     black -l 100 .
     echo "Run isort"
-    isort --profile black .
+    isort --profile black game.py
     echo "Run Flake8"
     flake8
   displayName: 'Code check'
