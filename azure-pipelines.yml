@@ -13,4 +13,4 @@ steps:
 - script: |
     python3 -m pip install flake8
     flake8
-  displayName: 'Run a multi-line script'
+  displayName: 'Code check'
