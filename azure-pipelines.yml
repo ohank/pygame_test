@@ -11,6 +11,8 @@ pool:
 
 steps:
 - script: |
-    python3 -m pip install flake8
+    python3 -m pip install flake8 black isort
+    black -l 100 .
+    isort -l 100
     flake8
   displayName: 'Code check'
